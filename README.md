@@ -61,26 +61,7 @@ YourRepository/
 
 ## 🔧 Configuration
 
-### Basic Setup
-The UpdateManager can be configured globally to control how it operates. This configuration is typically done in your main SquadJS configuration or in the UpdateManagerPlugin itself.
-
-```javascript
-// Configure UpdateManager settings
-UpdateManager.configure({
-  enabled: true,                   // Enable/disable the entire update system
-  checkInterval: 30 * 60 * 1000,  // How often to check for updates (30 minutes)
-  initialDelay: 15000,            // Wait 15 seconds after startup before first check
-  batchDelay: 5000,               // 5 second delay between plugin batches
-  staggerDelay: 5 * 60 * 1000     // 5 minutes between different GitHub repositories
-});
-```
-
-**Configuration Explained:**
-- **`enabled`**: Master switch for the entire update system
-- **`checkInterval`**: How often to automatically check for updates (in milliseconds)
-- **`initialDelay`**: Prevents immediate update checks on startup, giving plugins time to register
-- **`batchDelay`**: Small delay between processing multiple plugins from the same repository
-- **`staggerDelay`**: Prevents GitHub API rate limiting by spacing out checks between different repositories
+**No manual configuration required!** The UpdateManager automatically configures itself with optimal settings when you install the UpdateManagerPlugin.
 
 ### Discord Integration
 For Discord notifications, use the [UpdateManagerPlugin](https://github.com/Armyrat60/SquadJS-UpdateManagerPlugin.js):
