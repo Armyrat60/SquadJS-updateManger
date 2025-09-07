@@ -62,16 +62,25 @@ YourRepository/
 ## 🔧 Configuration
 
 ### Basic Setup
+The UpdateManager can be configured globally to control how it operates. This configuration is typically done in your main SquadJS configuration or in the UpdateManagerPlugin itself.
+
 ```javascript
 // Configure UpdateManager settings
 UpdateManager.configure({
-  enabled: true,
-  checkInterval: 30 * 60 * 1000,  // 30 minutes
-  initialDelay: 15000,            // 15 seconds
-  batchDelay: 5000,               // 5 seconds
-  staggerDelay: 5 * 60 * 1000     // 5 minutes between repos
+  enabled: true,                   // Enable/disable the entire update system
+  checkInterval: 30 * 60 * 1000,  // How often to check for updates (30 minutes)
+  initialDelay: 15000,            // Wait 15 seconds after startup before first check
+  batchDelay: 5000,               // 5 second delay between plugin batches
+  staggerDelay: 5 * 60 * 1000     // 5 minutes between different GitHub repositories
 });
 ```
+
+**Configuration Explained:**
+- **`enabled`**: Master switch for the entire update system
+- **`checkInterval`**: How often to automatically check for updates (in milliseconds)
+- **`initialDelay`**: Prevents immediate update checks on startup, giving plugins time to register
+- **`batchDelay`**: Small delay between processing multiple plugins from the same repository
+- **`staggerDelay`**: Prevents GitHub API rate limiting by spacing out checks between different repositories
 
 ### Discord Integration
 For Discord notifications, use the [UpdateManagerPlugin](https://github.com/Armyrat60/SquadJS-UpdateManagerPlugin.js):
@@ -90,12 +99,33 @@ For Discord notifications, use the [UpdateManagerPlugin](https://github.com/Army
 
 ## 📋 Admin Commands
 
-When using the UpdateManagerPlugin, these commands are available:
+**Where to use these commands:** These are **Discord chat commands** that you type in your Discord server where your SquadJS bot is running.
+
+**How it works:**
+1. Type the command in your Discord channel
+2. The UpdateManagerPlugin receives the command
+3. It calls the appropriate UpdateManager methods
+4. Results are sent back as a Discord message
+
+**Available Commands:**
 
 - `!updatecheck` - Manually check all plugins for updates
-- `!updatestatus` - Show current update status
-- `!updateplugins all` - Check updates for all plugins
-- `!updateplugins PluginName` - Check updates for specific plugin
+- `!updatestatus` - Show current update status for all registered plugins
+- `!updateplugins all` - Check updates for all plugins (same as !updatecheck)
+- `!updateplugins PluginName` - Check updates for a specific plugin
+
+**Example Usage:**
+```
+!updatecheck
+!updatestatus
+!updateplugins BM-OverlayMonitor
+!updateplugins admin-camera-warnings
+```
+
+**Requirements:**
+- UpdateManagerPlugin must be installed and configured
+- You must have admin permissions in SquadJS
+- Discord bot must be connected and monitoring the channel
 
 ## 🛠️ API Reference
 
